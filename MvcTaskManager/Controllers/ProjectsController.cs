@@ -60,7 +60,7 @@ namespace MvcTaskManager.Controllers
         [HttpPut]
         [Route("api/projects")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ProjectViewModel Put([FromBody] Project project)
+        public IActionResult Put([FromBody] Project project)
         {
             Project ExistingProject = db.Projects.FirstOrDefault(q => q.ProjectID == project.ProjectID);
             if (ExistingProject != null)
@@ -68,13 +68,18 @@ namespace MvcTaskManager.Controllers
                 ExistingProject.ProjectName = project.ProjectName;
                 ExistingProject.DateOfStart = project.DateOfStart;
                 ExistingProject.TeamSize = project.TeamSize;
+                ExistingProject.Active = project.Active;
+                ExistingProject.Status = project.Status;
+                ExistingProject.ClientLocationID = project.ClientLocationID;
+                ExistingProject.ClientLocation = null;
+
                 db.SaveChanges();
 
 
                 Project existingProject = db.Projects.Include("ClientLocation").FirstOrDefault(q => q.ProjectID == project.ProjectID);
                 ProjectViewModel projectViewModel = _mapper.Map<ProjectViewModel>(existingProject);
 
-                return projectViewModel;
+                return Ok(projectViewModel);
             }
             else
             {
