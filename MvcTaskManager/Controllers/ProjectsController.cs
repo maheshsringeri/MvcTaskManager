@@ -35,7 +35,11 @@ namespace MvcTaskManager.Controllers
 
             List<ProjectViewModel> projectViewModels = new List<ProjectViewModel>();
 
-            projectViewModels = _mapper.Map<List<ProjectViewModel>>(projects);
+            // projectViewModels = _mapper.Map<List<ProjectViewModel>>(projects);
+            foreach (var project in projects)
+            {
+                projectViewModels.Add(new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active, ClientLocation = project.ClientLocation, ClientLocationID = project.ClientLocationID, Status = project.Status });
+            }
 
             return projectViewModels;
         }
@@ -144,6 +148,18 @@ namespace MvcTaskManager.Controllers
 
             projectViewModels = _mapper.Map<List<ProjectViewModel>>(projects);
             return projectViewModels;
+        }
+
+        [HttpGet]
+        [Route("api/projects/searchbyprojectid/{ProjectID}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult GetProjectByProject(int ProjectID)
+        {
+            Project project = db.Projects.Include("ClientLocation").FirstOrDefault(q => q.ProjectID == ProjectID);
+
+            ProjectViewModel projectViewModel = _mapper.Map<ProjectViewModel>(project);
+
+            return Ok(projectViewModel);
         }
     }
 }
