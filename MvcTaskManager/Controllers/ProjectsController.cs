@@ -29,7 +29,7 @@ namespace MvcTaskManager.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public List<ProjectViewModel> Get()
         {
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
 
             List<Project> projects = db.Projects.Include("ClientLocation").ToList();
 
