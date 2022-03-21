@@ -27,20 +27,29 @@ namespace MvcTaskManager.Controllers
         [Route("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] LoginViewModel loginViewModel)
         {
-            var user = await _usersService.Authenticate(loginViewModel);
-
-            if (user == null)
+            if (loginViewModel.Username != null && loginViewModel.Password != null)
             {
-                return BadRequest(new { message = "Username or password is incorrect" });
+                var user = await _usersService.Authenticate(loginViewModel);
+
+                if (user == null)
+                {
+                    return BadRequest(new { message = "Username or password is incorrect" });
+                }
+
+                HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
+                var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+                Response.Headers.Add("Access-Control-Expose-Headers", "XSRF-REQUEST-TOKEN");
+                Response.Headers.Add("XSRF-REQUEST-TOKEN", tokens.RequestToken);
+
+
+                return Ok(user);
+            }
+            else
+            {
+                return BadRequest(new { message = "Username or password is incorrect/empty." });
             }
 
-            HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
-            var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-            Response.Headers.Add("Access-Control-Expose-Headers", "XSRF-REQUEST-TOKEN");
-            Response.Headers.Add("XSRF-REQUEST-TOKEN", tokens.RequestToken);
 
-
-            return Ok(user);
         }
 
         [HttpPost]
@@ -60,7 +69,7 @@ namespace MvcTaskManager.Controllers
             return Ok(user);
 
         }
-        
+
         [HttpGet]
         [Route("api/getUserByEmail/{Email}")]
         public async Task<IActionResult> GetUserByEmail(string Email)
