@@ -20,6 +20,8 @@ namespace MvcTaskManager.Identity
         public DbSet<Country> Countries { get; set; }
         public DbSet<Skill> Skills { get; set; }
 
+        public DbSet<TaskPriority> TaskPriorities { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -235,6 +237,13 @@ namespace MvcTaskManager.Identity
                 new Country() { CountryID = 192, CountryName = "Nauru" },
                 new Country() { CountryID = 193, CountryName = "Vatican City" }
             );
+
+            //modelBuilder.Entity<TaskPriority>().HasData(
+            //    new TaskPriority() { TaskPriorityName = "Urgent" },
+            //    new TaskPriority() { TaskPriorityName = "Normal" },
+            //    new TaskPriority() { TaskPriorityName = "Below Normal" },
+            //    new TaskPriority() { TaskPriorityName = "Low" }
+            //);
         }
     }
 }

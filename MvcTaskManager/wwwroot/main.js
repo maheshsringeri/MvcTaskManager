@@ -1753,7 +1753,7 @@ PagingPipe.ɵpipe = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
 
 /***/ }),
 
-/***/ 282:
+/***/ 3282:
 /*!************************************!*\
   !*** ./src/app/pipes/sort.pipe.ts ***!
   \************************************/
@@ -2101,7 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 587);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ 8784);
 /* harmony import */ var _directives_component_loader_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../directives/component-loader.directive */ 3362);
-/* harmony import */ var _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pipes/sort.pipe */ 282);
+/* harmony import */ var _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pipes/sort.pipe */ 3282);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 3184);
 
 
