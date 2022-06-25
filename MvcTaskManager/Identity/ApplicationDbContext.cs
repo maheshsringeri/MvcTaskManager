@@ -22,6 +22,9 @@ namespace MvcTaskManager.Identity
 
         public DbSet<TaskPriority> TaskPriorities { get; set; }
 
+        public DbSet<TaskStatus> TaskStatuses { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -244,6 +247,14 @@ namespace MvcTaskManager.Identity
             //    new TaskPriority() { TaskPriorityName = "Below Normal" },
             //    new TaskPriority() { TaskPriorityName = "Low" }
             //);
+
+            modelBuilder.Entity<TaskStatus>().HasData(
+                new TaskStatus() {TaskStatusID=1, TaskStatusName = "Holding" },
+                new TaskStatus() {TaskStatusID=2, TaskStatusName = "Prioritized" },
+                new TaskStatus() {TaskStatusID=3, TaskStatusName = "Started" },
+                new TaskStatus() {TaskStatusID=4, TaskStatusName = "Finished" },
+                new TaskStatus() {TaskStatusID=5, TaskStatusName = "Reverted" }
+            );
         }
     }
 }
